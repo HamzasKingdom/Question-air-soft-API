@@ -35,37 +35,8 @@ public class Question   {
   /**
    * Gets or Sets typeQuest
    */
-  public enum TypeQuestEnum {
-    TEXT("text"),
-    
-    CHOICE("choice"),
-    
-    NUMBER("number");
-
-    private String value;
-
-    TypeQuestEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TypeQuestEnum fromValue(String text) {
-      for (TypeQuestEnum b : TypeQuestEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-  }
   @JsonProperty("type_quest")
-  private TypeQuestEnum typeQuest = null;
+  private String typeQuest = null;
 
   @JsonProperty("min")
   private Long min = null;
@@ -157,7 +128,7 @@ public class Question   {
     this.contentQuest = contentQuest;
   }
 
-  public Question typeQuest(TypeQuestEnum typeQuest) {
+  public Question typeQuest(String typeQuest) {
     this.typeQuest = typeQuest;
     return this;
   }
@@ -168,11 +139,11 @@ public class Question   {
   **/
   @ApiModelProperty(value = "")
 
-  public TypeQuestEnum getTypeQuest() {
+  public String getTypeQuest() {
     return typeQuest;
   }
 
-  public void setTypeQuest(TypeQuestEnum typeQuest) {
+  public void setTypeQuest(String typeQuest) {
     this.typeQuest = typeQuest;
   }
 
