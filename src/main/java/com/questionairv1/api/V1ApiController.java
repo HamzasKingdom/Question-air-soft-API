@@ -45,6 +45,7 @@ public class V1ApiController implements V1Api {
 
     public ResponseEntity<Questionnaire> v1QuestionnaireFormsIdQuestnrGet(@ApiParam(value = "L'id du questionnaire à obtenir",required=true) @PathVariable("id_questnr") Long idQuestnr) {
         String accept = request.getHeader("Accept");
+        Questionnaire q = new Questionnaire();
         return new ResponseEntity<Questionnaire>(HttpStatus.NOT_IMPLEMENTED);
     }
 
