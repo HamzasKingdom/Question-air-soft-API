@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 public class QuestionDAOImpl implements QuestionDAO{
     Connection connection = ConnectionFactory.getConnection();
 
+    
     //Get Questions By QrId
     @Override    
     public ArrayList<Question> getQuestionsByQrId(int IdQr) {
@@ -76,7 +77,7 @@ public class QuestionDAOImpl implements QuestionDAO{
                 questionnaire.setIdQuestnr(resultSet.getLong(1));
                 questionnaire.setIdClient(resultSet.getLong(2));
                 questionnaire.setNameQuestnr(resultSet.getString(3));
-                
+                questionnaire.setQuestions(getQuestionsByQrId(IdQr));
                 
                 //questionnaireList.add(questionnaire);
                 
