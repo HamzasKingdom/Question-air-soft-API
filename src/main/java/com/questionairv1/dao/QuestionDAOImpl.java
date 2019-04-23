@@ -5,6 +5,7 @@
  */
 package com.questionairv1.dao;
 
+import com.questionairv1.model.Choice;
 import com.questionairv1.model.Question;
 import com.questionairv1.model.Questionnaire;
 import java.sql.Connection;
@@ -23,8 +24,19 @@ import java.util.logging.Logger;
 public class QuestionDAOImpl implements QuestionDAO{
     Connection connection = ConnectionFactory.getConnection();
 
+    //Get choices By Id of questions
+
+    @Override
+    public ArrayList<Choice> getChoicesByQId(int IdQ) {
+        ArrayList<Choice> choiceList = new ArrayList<>();
+        
+        ResultSet rs;
+        Statement st;
+        String query = "SELECT * FROM choice WHERE IdQ = ?;";
+    }
     
-    //Get Questions By QrId
+    
+    //Get Questions By Id of questionnaire
     @Override    
     public ArrayList<Question> getQuestionsByQrId(int IdQr) {
         
@@ -34,9 +46,12 @@ public class QuestionDAOImpl implements QuestionDAO{
         Statement st;
         String query = "SELECT * "
                 + "FROM questions,questionnaires,belong "
-                + "WHERE belong.IdQ = questions.IdQ AND belong.IdQr = questionnqires.IdQr AND IdQr = ?;";
+                + "WHERE belong.IdQ = questions.IdQ AND belong.IdQr = questionnqires.IdQr AND IdQr = "
+                + IdQr 
+                +";";
         
-        try {            
+        try {         
+            
             st = connection.createStatement();
             rs = st.executeQuery(query);
 
