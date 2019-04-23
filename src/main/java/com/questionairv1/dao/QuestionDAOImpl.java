@@ -32,7 +32,30 @@ public class QuestionDAOImpl implements QuestionDAO{
         
         ResultSet rs;
         Statement st;
-        String query = "SELECT * FROM choice WHERE IdQ = ?;";
+        String query = "SELECT * FROM choice WHERE IdQ = "
+                +IdQ
+                + ";";
+        try {         
+            
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next() == true) {
+
+                Choice choice = new Choice();
+                choice.setIdChoice(rs.getLong(1));
+                choice.setIdQuest(rs.getLong(2));
+                choice.setContent(rs.getString(3));
+                choice.setRating(rs.getLong(4));
+              
+
+
+                choiceList.add(choice);
+            }
+            } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return choiceList;
     }
     
     
