@@ -69,7 +69,7 @@ public class QuestionDAOImpl implements QuestionDAO{
         Statement st;
         String query = "SELECT * "
                 + "FROM questions,questionnaires,belong "
-                + "WHERE belong.IdQ = questions.IdQ AND belong.IdQr = questionnqires.IdQr AND IdQr = "
+                + "WHERE belong.IdQ = questions.IdQ AND belong.IdQr = questionnaires.IdQr AND questionnaires.IdQr = "
                 + IdQr 
                 +";";
         
