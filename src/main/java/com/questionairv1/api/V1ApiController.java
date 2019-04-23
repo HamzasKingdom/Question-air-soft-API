@@ -3,6 +3,7 @@ package com.questionairv1.api;
 import com.questionairv1.model.Answer;
 import com.questionairv1.model.Questionnaire;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.questionairv1.dao.QuestionDAOImpl;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,7 @@ import javax.validation.constraints.*;
 import javax.validation.Valid;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2019-04-21T16:16:21.145Z[GMT]")
@@ -45,8 +47,14 @@ public class V1ApiController implements V1Api {
 
     public ResponseEntity<Questionnaire> v1QuestionnaireFormsIdQuestnrGet(@ApiParam(value = "L'id du questionnaire à obtenir",required=true) @PathVariable("id_questnr") Long idQuestnr) {
         String accept = request.getHeader("Accept");
-        Questionnaire q = new Questionnaire();
-        return new ResponseEntity<Questionnaire>(HttpStatus.NOT_IMPLEMENTED);
+        ArrayList<Questionnaire> qa = new ArrayList<>();
+        QuestionDAOImpl dao = new QuestionDAOImpl();
+        qa = dao.getAllTheQuestionnaires();
+        for(Questionnaire q: qa) {
+            if(q.getIdQuestnr() == idQuestnr)
+                return new ResponseEntity<Questionnaire>(q, HttpStatus.OK);
+        }
+        return new ResponseEntity<Questionnaire>(HttpStatus.NOT_FOUND);
     }
 
 }
