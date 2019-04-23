@@ -5,6 +5,7 @@
  */
 package com.questionairv1.dao;
 
+import com.questionairv1.model.Choice;
 import com.questionairv1.model.Question;
 import com.questionairv1.model.Questionnaire;
 import java.util.ArrayList;
@@ -18,4 +19,5 @@ public interface QuestionDAO {
     public ArrayList<Questionnaire> getAllTheQuestionnaires();
     public Questionnaire getQuestionnaireById(int IdQr);
     public ArrayList<Question> getQuestionsByQrId(int IdQr);
+    public ArrayList<Choice> getChoicesByQId(int IdQ);
 }
