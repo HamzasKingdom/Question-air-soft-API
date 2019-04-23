@@ -8,10 +8,13 @@ package com.questionairv1.dao;
 import com.questionairv1.model.Question;
 import com.questionairv1.model.Questionnaire;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +23,39 @@ import java.util.ArrayList;
 public class QuestionDAOImpl implements QuestionDAO{
     Connection connection = ConnectionFactory.getConnection();
 
+    //Get Questionnaire By Id
+    @Override
+    public Questionnaire getQuestionnaireById(int IdQr) {
+        
+        Questionnaire questionnaire = new Questionnaire();
+        
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM questionnaires WHERE IdQr = ?;");
+            statement.setInt(1, IdQr);
+            ResultSet resultSet = statement.executeQuery();
+            
+            //ArrayList<Questionnaire> questionnaireList = new ArrayList<>();
+            while (!resultSet.wasNull()){
+                
+                
+                questionnaire.setIdQuestnr(resultSet.getLong(1));
+                questionnaire.setIdClient(resultSet.getLong(2));
+                questionnaire.setNameQuestnr(resultSet.getString(3));
+                
+                //questionnaireList.add(questionnaire);
+                
+            }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(QuestionDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return questionnaire;
+    }
+
+    
+    
     //Get All the questionnaires
     @Override
     public ArrayList<Questionnaire> getAllTheQuestionnaires() {
