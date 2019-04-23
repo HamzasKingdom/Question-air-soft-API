@@ -34,7 +34,7 @@ public class QuestionDAOImpl implements QuestionDAO{
         Statement st;
         String query = "SELECT * "
                 + "FROM questions,questionnaires,belong "
-                + "WHERE belong.IdQ = questions.IdQ AND belong.IdQr = questionnqires.IdQr AND IdQr = ?;";
+                + "WHERE belong.IdQ = questions.IdQ AND belong.IdQr = questionnaires.IdQr AND questionnaires.IdQr = " + IdQr + ";";
         
         try {            
             st = connection.createStatement();
@@ -64,19 +64,22 @@ public class QuestionDAOImpl implements QuestionDAO{
     @Override
     public Questionnaire getQuestionnaireById(int IdQr) {
         Questionnaire questionnaire = new Questionnaire();
-        
+        ResultSet rs;
+        Statement st;
+        String query = "SELECT * FROM questionnaires WHERE IdQr = " + IdQr + ";";
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM questionnaires WHERE IdQr = ?;");
-            statement.setInt(1, IdQr);
-            ResultSet resultSet = statement.executeQuery();
+            
+            //statement.setInt(1, IdQr);
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
             
             //ArrayList<Questionnaire> questionnaireList = new ArrayList<>();
-            while (!resultSet.wasNull()){
+            while (rs.next() == true){
                 
                 
-                questionnaire.setIdQuestnr(resultSet.getLong(1));
-                questionnaire.setIdClient(resultSet.getLong(2));
-                questionnaire.setNameQuestnr(resultSet.getString(3));
+                questionnaire.setIdQuestnr(rs.getLong(1));
+                questionnaire.setIdClient(rs.getLong(2));
+                questionnaire.setNameQuestnr(rs.getString(3));
                 questionnaire.setQuestions(getQuestionsByQrId(IdQr));
                 
                 //questionnaireList.add(questionnaire);

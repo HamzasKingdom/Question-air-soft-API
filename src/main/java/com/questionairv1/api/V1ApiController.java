@@ -47,14 +47,11 @@ public class V1ApiController implements V1Api {
 
     public ResponseEntity<Questionnaire> v1QuestionnaireFormsIdQuestnrGet(@ApiParam(value = "L'id du questionnaire à obtenir",required=true) @PathVariable("id_questnr") Long idQuestnr) {
         String accept = request.getHeader("Accept");
-        ArrayList<Questionnaire> qa = new ArrayList<>();
+        Questionnaire q = new Questionnaire();
         QuestionDAOImpl dao = new QuestionDAOImpl();
-        qa = dao.getAllTheQuestionnaires();
-        for(Questionnaire q: qa) {
-            if(q.getIdQuestnr() == idQuestnr)
-                return new ResponseEntity<Questionnaire>(q, HttpStatus.OK);
-        }
-        return new ResponseEntity<Questionnaire>(HttpStatus.NOT_FOUND);
+        System.out.println(idQuestnr.intValue());
+        q = dao.getQuestionnaireById(idQuestnr.intValue());
+        return new ResponseEntity<Questionnaire>(q, HttpStatus.OK);
     }
 
 }
