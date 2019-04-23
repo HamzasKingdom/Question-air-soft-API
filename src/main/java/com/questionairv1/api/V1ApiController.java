@@ -49,7 +49,6 @@ public class V1ApiController implements V1Api {
         String accept = request.getHeader("Accept");
         Questionnaire q = new Questionnaire();
         QuestionDAOImpl dao = new QuestionDAOImpl();
-        System.out.println(idQuestnr.intValue());
         q = dao.getQuestionnaireById(idQuestnr.intValue());
         return new ResponseEntity<Questionnaire>(q, HttpStatus.OK);
     }
