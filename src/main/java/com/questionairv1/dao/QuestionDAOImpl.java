@@ -23,10 +23,45 @@ import java.util.logging.Logger;
 public class QuestionDAOImpl implements QuestionDAO{
     Connection connection = ConnectionFactory.getConnection();
 
+    //Get Questions By QrId
+    @Override    
+    public ArrayList<Question> getQuestionsByQrId(int IdQr) {
+        
+        ArrayList<Question> questionList = new ArrayList<>();
+        
+        ResultSet rs;
+        Statement st;
+        String query = "SELECT * "
+                + "FROM questions,questionnaires,belong "
+                + "WHERE belong.IdQ = questions.IdQ AND belong.IdQr = questionnqires.IdQr AND IdQr = ?;";
+        
+        try {            
+            st = connection.createStatement();
+            rs = st.executeQuery(query);
+
+            while (rs.next() == true) {
+
+                Question question = new Question();
+                question.setIdQuest(rs.getLong(1));
+                question.setContentQuest(rs.getString(2));
+                question.setTypeQuest(rs.getString(3));                              
+                question.setMin(rs.getLong(4));
+                question.setMax(rs.getLong(5));
+                question.setIdCat(rs.getLong(6));             
+              
+
+
+                questionList.add(question);
+            }
+            } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return questionList;
+    }
+
     //Get Questionnaire By Id
     @Override
     public Questionnaire getQuestionnaireById(int IdQr) {
-        
         Questionnaire questionnaire = new Questionnaire();
         
         try {
@@ -41,6 +76,7 @@ public class QuestionDAOImpl implements QuestionDAO{
                 questionnaire.setIdQuestnr(resultSet.getLong(1));
                 questionnaire.setIdClient(resultSet.getLong(2));
                 questionnaire.setNameQuestnr(resultSet.getString(3));
+                
                 
                 //questionnaireList.add(questionnaire);
                 
