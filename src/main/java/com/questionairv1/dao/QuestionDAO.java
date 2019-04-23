@@ -16,4 +16,5 @@ import java.util.ArrayList;
 public interface QuestionDAO {
     public ArrayList<Question> getAllTheQuestions();
     public ArrayList<Questionnaire> getAllTheQuestionnaires();
+    public Questionnaire getQuestionnaireById(int IdQr);
 }
