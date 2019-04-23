@@ -86,7 +86,8 @@ public class QuestionDAOImpl implements QuestionDAO{
                 question.setTypeQuest(rs.getString(3));                              
                 question.setMin(rs.getLong(4));
                 question.setMax(rs.getLong(5));
-                question.setIdCat(rs.getLong(6));             
+                question.setIdCat(rs.getLong(6));
+                question.setChoices(getChoicesByQId((int) rs.getLong(1)));
               
 
 
