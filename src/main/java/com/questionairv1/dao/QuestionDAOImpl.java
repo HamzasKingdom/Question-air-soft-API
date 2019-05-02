@@ -118,7 +118,7 @@ public class QuestionDAOImpl implements QuestionDAO{
                 
                 questionnaire.setIdQuestnr(rs.getLong(1));
                 questionnaire.setIdClient(rs.getLong(2));
-                questionnaire.setNameQuestnr(rs.getString(3));
+                questionnaire.setNameQuestnr(rs.getString(5));
                 questionnaire.setQuestions(getQuestionsByQrId(IdQr));
                 
                 //questionnaireList.add(questionnaire);
